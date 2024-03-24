@@ -12,9 +12,11 @@ import { TbPlaylist } from "react-icons/tb";
 import { IoAlbumsOutline } from "react-icons/io5";
 import { LuPodcast } from "react-icons/lu";
 import type { MenuProps } from "antd";
-import { Breadcrumb, Layout, Menu, theme, ConfigProvider } from "antd";
+import { Layout, Menu, theme, ConfigProvider } from "antd";
 
-const { Header, Content, Footer, Sider } = Layout;
+import {Dashboard, Search, LikedSongs, Playlists, Albums, Artists, Podcasts, Settings} from "../components";
+
+const { Content, Footer, Sider } = Layout;
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -38,18 +40,19 @@ function getItem(
 
 // Dashboard, Search, Liked Songs, Playlists, Albums, Artists, Podcasts, Settings
 const items: MenuItem[] = [
-    getItem("Dashboard", "1", <DashboardOutlined />),
-    getItem("Search", "2", <SearchOutlined />),
-    getItem("Liked Songs", "3", <HeartOutlined />),
-    getItem("Playlists", "4", <TbPlaylist />),
-    getItem("Albums", "5", <IoAlbumsOutline />),
-    getItem("Artists", "6", <UserOutlined />),
-    getItem("Podcasts", "7", <LuPodcast />),
-    getItem("Settings", "8", <SettingOutlined />),
+    getItem("Dashboard", "dashboard", <DashboardOutlined />),
+    getItem("Search", "search", <SearchOutlined />),
+    getItem("Liked Songs", "liked", <HeartOutlined />),
+    getItem("Playlists", "playlists", <TbPlaylist />),
+    getItem("Albums", "albums", <IoAlbumsOutline />),
+    getItem("Artists", "artists", <UserOutlined />),
+    getItem("Podcasts", "podcasts", <LuPodcast />),
+    getItem("Settings", "settings", <SettingOutlined />),
 ];
 
 export default function Home() {
     const [collapsed, setCollapsed] = useState(false);
+    const [selected, setSelected] = useState("dashboard");
     return (
         <>
             <ConfigProvider
@@ -89,11 +92,21 @@ export default function Home() {
                             mode="inline"
                             items={items}
                             style={{ border: "none" }}
+                            onSelect={({ key }) => setSelected(key as string)}
+                            selectedKeys={[selected]}
                         />
                     </Sider>
                     <Layout>
                         <Content>
                             <TitleBar />
+                            {selected === "dashboard" && <Dashboard />}
+                            {selected === "search" && <Search />}
+                            {selected === "liked" && <LikedSongs />}
+                            {selected === "playlists" && <Playlists />}
+                            {selected === "albums" && <Albums />}
+                            {selected === "artists" && <Artists />}
+                            {selected === "podcasts" && <Podcasts />}
+                            {selected === "settings" && <Settings />}
                         </Content>
                         <Footer
                             className="text-center"
