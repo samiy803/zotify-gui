@@ -65,7 +65,8 @@ export default function Home() {
                         fontSize: 16,
                         colorBgBase: "#121212",
                         colorBgContainer: "#121212",
-                        borderRadius: 12,
+                        colorBgElevated: "#151515",
+                        borderRadius: 8,
                     },
                     algorithm: theme.darkAlgorithm,
                     components: {
@@ -80,7 +81,7 @@ export default function Home() {
                     },
                 }}
             >
-                <Layout style={{ height: "100vh" }}>
+                <Layout style={{ height: "100vh"  }}>
                     <Sider
                         collapsible
                         collapsed={collapsed}
@@ -97,7 +98,7 @@ export default function Home() {
                         />
                     </Sider>
                     <Layout>
-                        <Content>
+                        <Content style={{ height: "calc(100vh - 63px)", zIndex: 1}}>
                             <TitleBar />
                             {selected === "dashboard" && <Dashboard />}
                             {selected === "search" && <Search />}
@@ -110,7 +111,7 @@ export default function Home() {
                         </Content>
                         <Footer
                             className="text-center"
-                            style={{ fontSize: "0.75rem", color: "#538851" }}
+                            style={{ fontSize: "0.75rem", color: "#538851", zIndex: 2 }}
                         >
                             Made with ❤️ by Hazy Hues ©
                             {new Date().getFullYear()}
